@@ -22,6 +22,22 @@ namespace HandsOnAPIUsingEFCodeFirst.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("HandsOnAPIUsingEFCodeFirst.Entities.Cart", b =>
+                {
+                    b.Property<string>("CartId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("CartId");
+
+                    b.ToTable("Carts");
+                });
+
             modelBuilder.Entity("HandsOnAPIUsingEFCodeFirst.Entities.Order", b =>
                 {
                     b.Property<Guid>("OrderId")
@@ -32,6 +48,9 @@ namespace HandsOnAPIUsingEFCodeFirst.Migrations
                         .HasColumnType("Date");
 
                     b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TotalPrice")
                         .HasColumnType("int");
 
                     b.Property<int>("UserId")
@@ -67,6 +86,29 @@ namespace HandsOnAPIUsingEFCodeFirst.Migrations
                     b.HasKey("ProductId");
 
                     b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("HandsOnAPIUsingEFCodeFirst.Entities.Transaction", b =>
+                {
+                    b.Property<Guid>("TransactionId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("OrderId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("PaymentMode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TransactionAmt")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("TransactionDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("TransactionId");
+
+                    b.ToTable("Transactions");
                 });
 
             modelBuilder.Entity("HandsOnAPIUsingEFCodeFirst.Entities.User", b =>
